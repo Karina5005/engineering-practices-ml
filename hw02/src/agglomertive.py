@@ -13,9 +13,9 @@ class AgglomertiveClustering:
         if points_a.size == 0 or points_b.size == 0:
             return None
         dist = np.array([((points_b - a) ** 2).sum(axis=1) for a in points_a])
-        if self.linkage == 'average':
+        if self.linkage == "average":
             return dist.mean()
-        if self.linkage == 'single':
+        if self.linkage == "single":
             return dist.min()
         return dist.max()
 
@@ -25,9 +25,9 @@ class AgglomertiveClustering:
         if points_a_ind.size == 0 or points_b_ind.size == 0:
             return None
         dist = self.dist[np.ix_(points_a_ind, points_b_ind)]
-        if self.linkage == 'average':
+        if self.linkage == "average":
             return dist.mean()
-        if self.linkage == 'single':
+        if self.linkage == "single":
             return dist.min()
         return dist.max()
 
@@ -48,9 +48,9 @@ class AgglomertiveClustering:
             min_dist = sys.maxsize
             for i in range(X.shape[0]):
                 for j in range(i):
-                    if not i in self.clusters_map:
+                    if i not in self.clusters_map:
                         continue
-                    if not j in self.clusters_map:
+                    if j not in self.clusters_map:
                         continue
                     if self.dist[i, j] is None:
                         continue
@@ -64,7 +64,7 @@ class AgglomertiveClustering:
             for i in range(X.shape[0]):
                 if i == b:
                     continue
-                if not i in self.clusters:
+                if i not in self.clusters:
                     continue
                 self.dist[b][i] = self.check_dist_between_clusters(X, b, i)
                 self.dist[i][b] = self.dist[b][i]

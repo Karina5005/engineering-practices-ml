@@ -10,7 +10,7 @@ from agglomertive import AgglomertiveClustering
 def visualize_clasters(X, labels, plt_name):
     unique_labels = np.unique(labels)
     unique_colors = np.random.random((len(unique_labels), 3))
-    colors = [unique_colors[l] for l in labels]
+    colors = [unique_colors[lab] for lab in labels]
     plt.figure(figsize=(9, 9))
     plt.scatter(X[:, 0], X[:, 1], c=colors)
     plt.savefig(f"results/{plt_name}")
@@ -22,10 +22,18 @@ def clusters_statistics(flatten_image, cluster_colors, cluster_labels, plt_name)
         axes_pair = axes[remove_color]
         first_color = 0 if remove_color != 0 else 2
         second_color = 1 if remove_color != 1 else 2
-        axes_pair[0].scatter([p[first_color] for p in flatten_image], [p[second_color] for p in flatten_image],
-                             c=flatten_image, marker='.')
-        axes_pair[1].scatter([p[first_color] for p in flatten_image], [p[second_color] for p in flatten_image],
-                             c=[cluster_colors[c] for c in cluster_labels], marker='.')
+        axes_pair[0].scatter(
+            [p[first_color] for p in flatten_image],
+            [p[second_color] for p in flatten_image],
+            c=flatten_image,
+            marker=".",
+        )
+        axes_pair[1].scatter(
+            [p[first_color] for p in flatten_image],
+            [p[second_color] for p in flatten_image],
+            c=[cluster_colors[c] for c in cluster_labels],
+            marker=".",
+        )
         for a in axes_pair:
             a.set_xlim(0, 1)
             a.set_ylim(0, 1)
@@ -74,12 +82,20 @@ def save_image(image: np.array, path: str) -> NoReturn:
 
 
 def clusterize_image(image, **kwargs):
-    image_compr = np.unique(np.reshape(image, (image.shape[0] * image.shape[1], image.shape[2])), axis=0)
+    image_compr = np.unique(
+        np.reshape(image, (image.shape[0] * image.shape[1], image.shape[2])), axis=0
+    )
     cluster_colors = np.random.random((50, 3))  # color of each cluster
-    agg_clustering = AgglomertiveClustering(n_clusters=50, linkage='complete')
-    clusters = agg_clustering.fit_predict(image_compr)  # Cluster labels for each pixel in flattened image
+    agg_clustering = AgglomertiveClustering(n_clusters=50, linkage="complete")
+    clusters = agg_clustering.fit_predict(
+        image_compr
+    )  # Cluster labels for each pixel in flattened image
     recolored = image.copy()
     for i in np.unique(clusters):
-        recolored[np.isin(recolored, image_compr[clusters == i]).any(axis=-1)] = cluster_colors[i]
-    clusters_statistics(image_compr.reshape(-1, 3), cluster_colors, clusters, "img_stat")  # Very slow (:
+        recolored[
+            np.isin(recolored, image_compr[clusters == i]).any(axis=-1)
+        ] = cluster_colors[i]
+    clusters_statistics(
+        image_compr.reshape(-1, 3), cluster_colors, clusters, "img_stat"
+    )  # Very slow (:
     return (recolored * 255).astype(int)
