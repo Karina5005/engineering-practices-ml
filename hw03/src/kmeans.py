@@ -2,7 +2,12 @@ from typing import NoReturn
 
 import numpy as np
 from sklearn.neighbors import KDTree
-from utils import init_k_means_pp, init_random, init_sample
+
+from utils import (
+    init_k_means_pp,
+    init_random,
+    init_sample,
+)
 
 
 class KMeans:
@@ -33,7 +38,7 @@ class KMeans:
             not_empty_clusters = np.unique(clusters_ind)
             if not_empty_clusters.shape[0] != self.clusters:
                 for cluster_index in range(0, self.clusters):
-                    if not (cluster_index in not_empty_clusters):
+                    if cluster_index not in not_empty_clusters:
                         self.centroids[cluster_index] = np.rand(X[0].shape[0])
                         i = i - 1
                         continue
