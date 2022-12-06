@@ -1,0 +1,4 @@
+outs:
+- md5: 8382407a36e4a123706fbec66a8ffb02
+  size: 90138
+  path: kmeans1.png
