@@ -1,0 +1,17 @@
+schema: '2.0'
+stages:
+  requirments:
+    cmd: python3 -m pip install numpy matplotlib scikit-learn opencv-python setuptools
+    deps:
+    - path: requirements.txt
+      md5: 921376267486abe0815c6dc951b8d57a
+      size: 95
+  cluster:
+    cmd: python3 src/main.py
+    deps:
+    - path: src/data/Lena.png
+      md5: 09f872dca5bffbf238bc437c22e019e6
+      size: 616562
+    - path: src/main.py
+      md5: 653ff24dfd9e9d3006eb5bc73ecbc1e8
+      size: 1257

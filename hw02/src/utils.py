@@ -13,7 +13,7 @@ def visualize_clasters(X, labels, plt_name):
     colors = [unique_colors[lab] for lab in labels]
     plt.figure(figsize=(9, 9))
     plt.scatter(X[:, 0], X[:, 1], c=colors)
-    plt.savefig(f"results/{plt_name}")
+    plt.savefig(f"src/results/{plt_name}")
 
 
 def clusters_statistics(flatten_image, cluster_colors, cluster_labels, plt_name):
@@ -37,7 +37,7 @@ def clusters_statistics(flatten_image, cluster_colors, cluster_labels, plt_name)
         for a in axes_pair:
             a.set_xlim(0, 1)
             a.set_ylim(0, 1)
-    plt.savefig(f"results/{plt_name}")
+    plt.savefig(f"src/results/{plt_name}")
 
 
 def distance(p1, p2):
@@ -78,7 +78,7 @@ def read_image(path: str) -> np.array:
 
 
 def save_image(image: np.array, path: str) -> NoReturn:
-    cv2.imwrite(f"results/{path}", image)
+    cv2.imwrite(f"src/results/{path}", image)
 
 
 def clusterize_image(image, **kwargs):
