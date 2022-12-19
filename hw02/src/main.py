@@ -38,6 +38,6 @@ if __name__ == "__main__":
     labels = agg_clustering.fit_predict(X_2)
     visualize_clasters(X_2, labels, "agg2")
 
-    image = read_image("data/Lena.png")
+    image = read_image("src/data/Lena.png")
     result = clusterize_image(image)
     save_image(result, "result.png")

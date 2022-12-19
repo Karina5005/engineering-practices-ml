@@ -1,0 +1,6 @@
+stages:
+  cluster:
+    cmd: python3 src/main.py
+    deps:
+    - src/data/Lena.png
+    - src/main.py
